@@ -349,8 +349,10 @@ def ecg_wave_detector(ecg, rpeaks):
         except IndexError:
             pass
 
-        if (p_wave and q_wave and s_wave and t_wave):
+        try:
             cycle_peaks.append([p_wave, q_wave, rpeak, s_wave, t_wave])
+        except NameError:
+            pass
 
     df_cycle_peaks = pd.DataFrame(cycle_peaks, columns=['p_peak', 'q_peak', 'r_peak', 's_peak', 't_peak'])
 # pd.Series(epoch_before).plot()
