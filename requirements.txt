@@ -1,7 +1,7 @@
 numpy
 pandas>=0.18.0
 scipy
-sklearn
+scikit-learn
 matplotlib
 mne
 bioread
