@@ -296,6 +296,9 @@ def ecg_wave_detector(ecg, rpeaks):
     t_waves = []
     t_waves_starts = []
     t_waves_ends = []
+
+    cycle_peaks = []
+
     for index, rpeak in enumerate(rpeaks[:-3]):
 
         try:
@@ -346,6 +349,10 @@ def ecg_wave_detector(ecg, rpeaks):
         except IndexError:
             pass
 
+        if (p_wave and q_wave and s_wave and t_wave):
+            cycle_peaks.append([p_wave, q_wave, rpeak, s_wave, t_wave])
+
+    df_cycle_peaks = pd.DataFrame(cycle_peaks, columns=['p_peak', 'q_peak', 'r_peak', 's_peak', 't_peak'])
 # pd.Series(epoch_before).plot()
 #    t_waves = []
 #    for index, rpeak in enumerate(rpeaks[0:-1]):
@@ -399,7 +406,8 @@ def ecg_wave_detector(ecg, rpeaks):
                  "S_Waves": s_waves,
                  "Q_Waves_Onsets": q_waves_starts,
                  "T_Waves_Onsets": t_waves_starts,
-                 "T_Waves_Ends": t_waves_ends}
+                 "T_Waves_Ends": t_waves_ends,
+                 "Cycle_Peak": df_cycle_peaks}
     return(ecg_waves)
 
 
